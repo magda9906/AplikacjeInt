@@ -1,0 +1,582 @@
+--------------------------------------------------------
+--  File created - pi¹tek-czerwiec-12-2020   
+--------------------------------------------------------
+DROP TABLE "STUDENT"."KATEGORIA";
+DROP TABLE "STUDENT"."KLIENT";
+DROP TABLE "STUDENT"."KOSZYK";
+DROP TABLE "STUDENT"."PRACOWNIK";
+DROP TABLE "STUDENT"."PRODUCENT";
+DROP TABLE "STUDENT"."PRODUKT";
+DROP TABLE "STUDENT"."PRODUKTY_KOSZYK";
+DROP TABLE "STUDENT"."PRODUKT_ZAMOWIENIE";
+DROP TABLE "STUDENT"."ZAMOWIENIE";
+DROP SEQUENCE "STUDENT"."KATEGORIA_SEQ";
+DROP SEQUENCE "STUDENT"."KLIENT_SEQ";
+DROP SEQUENCE "STUDENT"."KOSZPROD_SEQ";
+DROP SEQUENCE "STUDENT"."KOSZYK_SEQ";
+DROP SEQUENCE "STUDENT"."PRACOWNIK_SEQ";
+DROP SEQUENCE "STUDENT"."PRACOWNIKZAMOW_SEQ";
+DROP SEQUENCE "STUDENT"."PRODUCENT_SEQ";
+DROP SEQUENCE "STUDENT"."PRODUKT_SEQ";
+DROP SEQUENCE "STUDENT"."ZAMOWIENIE_SEQ";
+DROP FUNCTION "STUDENT"."FWYPISZ";
+DROP PROCEDURE "STUDENT"."CREATE_ZAM";
+DROP PROCEDURE "STUDENT"."CZY_POWT";
+DROP PROCEDURE "STUDENT"."KOSZYK_EDIT";
+DROP PROCEDURE "STUDENT"."KOSZYK_PROC";
+DROP PROCEDURE "STUDENT"."LICZ_WIERSZE";
+DROP PROCEDURE "STUDENT"."LOGINPRAC";
+DROP PROCEDURE "STUDENT"."LOGUJ";
+DROP PROCEDURE "STUDENT"."MYPROC";
+DROP PROCEDURE "STUDENT"."REJESTRUJ";
+DROP PROCEDURE "STUDENT"."WYPISZ_TAB";
+DROP PROCEDURE "STUDENT"."ZAMOW_REAL";
+--------------------------------------------------------
+--  DDL for Sequence KATEGORIA_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "STUDENT"."KATEGORIA_SEQ"  MINVALUE 1 MAXVALUE 99999 INCREMENT BY 1 START WITH 7 NOCACHE  NOORDER  NOCYCLE  NOPARTITION ;
+--------------------------------------------------------
+--  DDL for Sequence KLIENT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "STUDENT"."KLIENT_SEQ"  MINVALUE 1 MAXVALUE 99999 INCREMENT BY 1 START WITH 20 NOCACHE  NOORDER  NOCYCLE  NOPARTITION ;
+--------------------------------------------------------
+--  DDL for Sequence KOSZPROD_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "STUDENT"."KOSZPROD_SEQ"  MINVALUE 1 MAXVALUE 99999 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE  NOPARTITION ;
+--------------------------------------------------------
+--  DDL for Sequence KOSZYK_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "STUDENT"."KOSZYK_SEQ"  MINVALUE 1 MAXVALUE 99999 INCREMENT BY 1 START WITH 2 NOCACHE  NOORDER  NOCYCLE  NOPARTITION ;
+--------------------------------------------------------
+--  DDL for Sequence PRACOWNIK_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "STUDENT"."PRACOWNIK_SEQ"  MINVALUE 1 MAXVALUE 99999 INCREMENT BY 1 START WITH 10 NOCACHE  NOORDER  NOCYCLE  NOPARTITION ;
+--------------------------------------------------------
+--  DDL for Sequence PRACOWNIKZAMOW_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "STUDENT"."PRACOWNIKZAMOW_SEQ"  MINVALUE 1 MAXVALUE 9 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  CYCLE  NOPARTITION ;
+--------------------------------------------------------
+--  DDL for Sequence PRODUCENT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "STUDENT"."PRODUCENT_SEQ"  MINVALUE 1 MAXVALUE 99999 INCREMENT BY 1 START WITH 5 NOCACHE  NOORDER  NOCYCLE  NOPARTITION ;
+--------------------------------------------------------
+--  DDL for Sequence PRODUKT_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "STUDENT"."PRODUKT_SEQ"  MINVALUE 1 MAXVALUE 99999 INCREMENT BY 1 START WITH 6 NOCACHE  NOORDER  NOCYCLE  NOPARTITION ;
+--------------------------------------------------------
+--  DDL for Sequence ZAMOWIENIE_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "STUDENT"."ZAMOWIENIE_SEQ"  MINVALUE 1 MAXVALUE 99999 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE  NOPARTITION ;
+--------------------------------------------------------
+--  DDL for Table KATEGORIA
+--------------------------------------------------------
+
+  CREATE TABLE "STUDENT"."KATEGORIA" 
+   (	"KATEGORIA_ID" NUMBER(5,0), 
+	"NAZWA" VARCHAR2(20 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K" ;
+--------------------------------------------------------
+--  DDL for Table KLIENT
+--------------------------------------------------------
+
+  CREATE TABLE "STUDENT"."KLIENT" 
+   (	"KLIENT_ID" NUMBER(5,0), 
+	"NAZWISKO" VARCHAR2(35 BYTE), 
+	"IMIE" VARCHAR2(25 BYTE), 
+	"TELEFON" NUMBER(9,0), 
+	"EMAIL" VARCHAR2(80 BYTE), 
+	"HASLO" VARCHAR2(20 BYTE), 
+	"ULICA" VARCHAR2(40 BYTE), 
+	"NR_DOMU" NUMBER(5,0), 
+	"NR_LOKALU" NUMBER(5,0), 
+	"MIEJSCOWOSC" VARCHAR2(40 BYTE), 
+	"KOD_POCZTOWY" VARCHAR2(6 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K" ;
+--------------------------------------------------------
+--  DDL for Table KOSZYK
+--------------------------------------------------------
+
+  CREATE TABLE "STUDENT"."KOSZYK" 
+   (	"KOSZYK_ID" NUMBER(5,0), 
+	"KLIENT_ID" NUMBER(5,0), 
+	"PRACOWNIK_ID" NUMBER(5,0), 
+	"WARTOSC" NUMBER(7,2), 
+	"PRODUKTY_INSIDE" NUMBER(5,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K" ;
+--------------------------------------------------------
+--  DDL for Table PRACOWNIK
+--------------------------------------------------------
+
+  CREATE TABLE "STUDENT"."PRACOWNIK" 
+   (	"PRACOWNIK_ID" NUMBER(5,0), 
+	"NAZWISKO" VARCHAR2(35 BYTE), 
+	"IMIE" VARCHAR2(25 BYTE), 
+	"STANOWISKO" VARCHAR2(25 BYTE), 
+	"DATA_ZATRUDNIENIA" DATE, 
+	"TELEFON" VARCHAR2(20 BYTE), 
+	"EMAIL" VARCHAR2(80 BYTE), 
+	"HASLO" VARCHAR2(20 BYTE), 
+	"ZAMOWIENIE_ID" NUMBER(5,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K" ;
+--------------------------------------------------------
+--  DDL for Table PRODUCENT
+--------------------------------------------------------
+
+  CREATE TABLE "STUDENT"."PRODUCENT" 
+   (	"PRODUCENT_ID" NUMBER(5,0), 
+	"NAZWA" VARCHAR2(255 BYTE), 
+	"ULICA" VARCHAR2(40 BYTE), 
+	"NR_DOMU" NUMBER(5,0), 
+	"NR_LOKALU" NUMBER(5,0), 
+	"MIEJSCOWOSC" VARCHAR2(40 BYTE), 
+	"KOD_POCZTOWY" VARCHAR2(6 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K" ;
+--------------------------------------------------------
+--  DDL for Table PRODUKT
+--------------------------------------------------------
+
+  CREATE TABLE "STUDENT"."PRODUKT" 
+   (	"PRODUKT_ID" NUMBER(5,0), 
+	"NAZWA" VARCHAR2(255 BYTE), 
+	"KATEGORIA_ID" NUMBER(5,0), 
+	"PRODUCENT_ID" NUMBER(5,0), 
+	"ILOSC" NUMBER(3,0), 
+	"CENA" NUMBER(5,2), 
+	"OPIS" VARCHAR2(255 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K" ;
+--------------------------------------------------------
+--  DDL for Table PRODUKTY_KOSZYK
+--------------------------------------------------------
+
+  CREATE TABLE "STUDENT"."PRODUKTY_KOSZYK" 
+   (	"PRODUKTY_INSIDE" NUMBER(5,0), 
+	"PRODUKT_ID" NUMBER(5,0), 
+	"KOSZYK_ID" NUMBER(5,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K" ;
+--------------------------------------------------------
+--  DDL for Table PRODUKT_ZAMOWIENIE
+--------------------------------------------------------
+
+  CREATE TABLE "STUDENT"."PRODUKT_ZAMOWIENIE" 
+   (	"PRODUKT_ID" NUMBER(5,0), 
+	"ZAMOWIENIE_ID" NUMBER(5,0)
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  TABLESPACE "TMP_2K" ;
+--------------------------------------------------------
+--  DDL for Table ZAMOWIENIE
+--------------------------------------------------------
+
+  CREATE TABLE "STUDENT"."ZAMOWIENIE" 
+   (	"ZAMOWIENIE_ID" NUMBER(5,0), 
+	"KLIENT_ID" NUMBER(5,0), 
+	"PRACOWNIK_ID" NUMBER(5,0), 
+	"WARTOSC" NUMBER(7,2)
+   ) SEGMENT CREATION DEFERRED 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  TABLESPACE "TMP_2K" ;
+REM INSERTING into STUDENT.KATEGORIA
+SET DEFINE OFF;
+Insert into STUDENT.KATEGORIA (KATEGORIA_ID,NAZWA) values ('1','KOTY');
+Insert into STUDENT.KATEGORIA (KATEGORIA_ID,NAZWA) values ('2','PSY');
+Insert into STUDENT.KATEGORIA (KATEGORIA_ID,NAZWA) values ('3','MALE_ZWIERZETA');
+Insert into STUDENT.KATEGORIA (KATEGORIA_ID,NAZWA) values ('4','RYBKI');
+Insert into STUDENT.KATEGORIA (KATEGORIA_ID,NAZWA) values ('5','PTAKI');
+REM INSERTING into STUDENT.KLIENT
+SET DEFINE OFF;
+Insert into STUDENT.KLIENT (KLIENT_ID,NAZWISKO,IMIE,TELEFON,EMAIL,HASLO,ULICA,NR_DOMU,NR_LOKALU,MIEJSCOWOSC,KOD_POCZTOWY) values ('15','Kowalski','Jan','321321321','janko@o2.pl','321ewq','Sienkiewicza','5','8','Tarnobrzeg','39-400');
+Insert into STUDENT.KLIENT (KLIENT_ID,NAZWISKO,IMIE,TELEFON,EMAIL,HASLO,ULICA,NR_DOMU,NR_LOKALU,MIEJSCOWOSC,KOD_POCZTOWY) values ('16','Nowak','Anna','765321654','ania@onet.pl','ania123','Kopernika','8',null,'Siedleszczany','39-450');
+Insert into STUDENT.KLIENT (KLIENT_ID,NAZWISKO,IMIE,TELEFON,EMAIL,HASLO,ULICA,NR_DOMU,NR_LOKALU,MIEJSCOWOSC,KOD_POCZTOWY) values ('17','Ciekawski','Mateusz','444333444','m.c@onet.pl','matimati','Rejtana','37','9','Warszawa','02-202');
+Insert into STUDENT.KLIENT (KLIENT_ID,NAZWISKO,IMIE,TELEFON,EMAIL,HASLO,ULICA,NR_DOMU,NR_LOKALU,MIEJSCOWOSC,KOD_POCZTOWY) values ('18','Nowak','Krzysztof','777111777','kris@gmail.com','^%$#@!','Deszczowa','27',null,'Piaseczno','03-303');
+Insert into STUDENT.KLIENT (KLIENT_ID,NAZWISKO,IMIE,TELEFON,EMAIL,HASLO,ULICA,NR_DOMU,NR_LOKALU,MIEJSCOWOSC,KOD_POCZTOWY) values ('19','Polak','Janusz','432123432','janusz.passat@o2.pl','passat','Zielona','15',null,'Zawodziany','12-345');
+REM INSERTING into STUDENT.KOSZYK
+SET DEFINE OFF;
+Insert into STUDENT.KOSZYK (KOSZYK_ID,KLIENT_ID,PRACOWNIK_ID,WARTOSC,PRODUKTY_INSIDE) values ('1','15','1','53454','1');
+REM INSERTING into STUDENT.PRACOWNIK
+SET DEFINE OFF;
+Insert into STUDENT.PRACOWNIK (PRACOWNIK_ID,NAZWISKO,IMIE,STANOWISKO,DATA_ZATRUDNIENIA,TELEFON,EMAIL,HASLO,ZAMOWIENIE_ID) values ('1','Kossakowski','Amadeusz','magazynier',to_date('01/01/01','RR/MM/DD'),'987654321','amadeo@gmail.com','zaq12wsx',null);
+Insert into STUDENT.PRACOWNIK (PRACOWNIK_ID,NAZWISKO,IMIE,STANOWISKO,DATA_ZATRUDNIENIA,TELEFON,EMAIL,HASLO,ZAMOWIENIE_ID) values ('2','Kowalski','Adrian','magazynier',to_date('01/02/01','RR/MM/DD'),'987654321','adik@o2.pl','zaq12wsmx',null);
+Insert into STUDENT.PRACOWNIK (PRACOWNIK_ID,NAZWISKO,IMIE,STANOWISKO,DATA_ZATRUDNIENIA,TELEFON,EMAIL,HASLO,ZAMOWIENIE_ID) values ('3','Zielonka','Anna','magazynier',to_date('01/03/01','RR/MM/DD'),'987654321','aniaja@gmail.com','xsw21qaz',null);
+Insert into STUDENT.PRACOWNIK (PRACOWNIK_ID,NAZWISKO,IMIE,STANOWISKO,DATA_ZATRUDNIENIA,TELEFON,EMAIL,HASLO,ZAMOWIENIE_ID) values ('4','Sawczuk','Janusz','magazynier',to_date('01/04/01','RR/MM/DD'),'987654321','sawczuk@gmail.com','zaq12wsxzaq',null);
+Insert into STUDENT.PRACOWNIK (PRACOWNIK_ID,NAZWISKO,IMIE,STANOWISKO,DATA_ZATRUDNIENIA,TELEFON,EMAIL,HASLO,ZAMOWIENIE_ID) values ('5','Socha','Agnieszka','magazynier',to_date('01/05/01','RR/MM/DD'),'987654321','aga@gmail.com','654321',null);
+Insert into STUDENT.PRACOWNIK (PRACOWNIK_ID,NAZWISKO,IMIE,STANOWISKO,DATA_ZATRUDNIENIA,TELEFON,EMAIL,HASLO,ZAMOWIENIE_ID) values ('6','Majdan','Piotr','magazynier',to_date('01/06/01','RR/MM/DD'),'987654321','peter@gmail.com','123456',null);
+Insert into STUDENT.PRACOWNIK (PRACOWNIK_ID,NAZWISKO,IMIE,STANOWISKO,DATA_ZATRUDNIENIA,TELEFON,EMAIL,HASLO,ZAMOWIENIE_ID) values ('7','Marek','Gabriela','magazynier',to_date('01/07/01','RR/MM/DD'),'987654321','gabi@gmail.com','mnbvcxz',null);
+Insert into STUDENT.PRACOWNIK (PRACOWNIK_ID,NAZWISKO,IMIE,STANOWISKO,DATA_ZATRUDNIENIA,TELEFON,EMAIL,HASLO,ZAMOWIENIE_ID) values ('8','Piont','Martyna','magazynier',to_date('01/08/01','RR/MM/DD'),'987654321','piont@gmail.com','qwerty',null);
+Insert into STUDENT.PRACOWNIK (PRACOWNIK_ID,NAZWISKO,IMIE,STANOWISKO,DATA_ZATRUDNIENIA,TELEFON,EMAIL,HASLO,ZAMOWIENIE_ID) values ('9','Kos','Adam','magazynier',to_date('01/09/01','RR/MM/DD'),'987654321','kosadam@gmail.com','!@#$%^',null);
+REM INSERTING into STUDENT.PRODUCENT
+SET DEFINE OFF;
+Insert into STUDENT.PRODUCENT (PRODUCENT_ID,NAZWA,ULICA,NR_DOMU,NR_LOKALU,MIEJSCOWOSC,KOD_POCZTOWY) values ('1','Purina','Kopernika','15',null,'Warszawa','02-202');
+Insert into STUDENT.PRODUCENT (PRODUCENT_ID,NAZWA,ULICA,NR_DOMU,NR_LOKALU,MIEJSCOWOSC,KOD_POCZTOWY) values ('2','Whiskas','Mickiewicza','8',null,'Bydgoszcz','85-001');
+Insert into STUDENT.PRODUCENT (PRODUCENT_ID,NAZWA,ULICA,NR_DOMU,NR_LOKALU,MIEJSCOWOSC,KOD_POCZTOWY) values ('3','Peddigree','Kolorowa','15',null,'Katowice','40-001');
+Insert into STUDENT.PRODUCENT (PRODUCENT_ID,NAZWA,ULICA,NR_DOMU,NR_LOKALU,MIEJSCOWOSC,KOD_POCZTOWY) values ('4','Catsan','Kocia','18','3','Piaseczno','05-500');
+REM INSERTING into STUDENT.PRODUKT
+SET DEFINE OFF;
+Insert into STUDENT.PRODUKT (PRODUKT_ID,NAZWA,KATEGORIA_ID,PRODUCENT_ID,ILOSC,CENA,OPIS) values ('1','Karma dla koci¹t','1','2','100','2,99','Karma dla koci¹t od 1 miesi¹ca ¿ycia');
+Insert into STUDENT.PRODUKT (PRODUKT_ID,NAZWA,KATEGORIA_ID,PRODUCENT_ID,ILOSC,CENA,OPIS) values ('2','Drapak dla kota','1','4','100','119,99','Drapak dla kota z wysokiej jakoœci sznurka');
+Insert into STUDENT.PRODUKT (PRODUKT_ID,NAZWA,KATEGORIA_ID,PRODUCENT_ID,ILOSC,CENA,OPIS) values ('3','¯wirek','1','4','100','19,99','¯wirek dla kota zbrylaj¹cy siê');
+Insert into STUDENT.PRODUKT (PRODUKT_ID,NAZWA,KATEGORIA_ID,PRODUCENT_ID,ILOSC,CENA,OPIS) values ('4','Zestaw zabawek','1','4','100','49,99','Zestaw zabawek dla kota. Zawiera 3 pillki i 2 myszki wykonane z wysokiej jakosci sznurka');
+Insert into STUDENT.PRODUKT (PRODUKT_ID,NAZWA,KATEGORIA_ID,PRODUCENT_ID,ILOSC,CENA,OPIS) values ('5','Zestaw zabawek','2','3','100','49,99','Zestaw zabawek dla psa. Zawiera 2 gryzaki, 3 pilki i gumow¹ kaczkê');
+REM INSERTING into STUDENT.PRODUKTY_KOSZYK
+SET DEFINE OFF;
+Insert into STUDENT.PRODUKTY_KOSZYK (PRODUKTY_INSIDE,PRODUKT_ID,KOSZYK_ID) values ('1','1','1');
+REM INSERTING into STUDENT.PRODUKT_ZAMOWIENIE
+SET DEFINE OFF;
+REM INSERTING into STUDENT.ZAMOWIENIE
+SET DEFINE OFF;
+--------------------------------------------------------
+--  Constraints for Table PRODUKT_ZAMOWIENIE
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."PRODUKT_ZAMOWIENIE" MODIFY ("PRODUKT_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."PRODUKT_ZAMOWIENIE" MODIFY ("ZAMOWIENIE_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."PRODUKT_ZAMOWIENIE" ADD PRIMARY KEY ("PRODUKT_ID", "ZAMOWIENIE_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "TMP_2K"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table PRACOWNIK
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."PRACOWNIK" MODIFY ("PRACOWNIK_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."PRACOWNIK" MODIFY ("NAZWISKO" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."PRACOWNIK" ADD PRIMARY KEY ("PRACOWNIK_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table KOSZYK
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."KOSZYK" MODIFY ("KOSZYK_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."KOSZYK" MODIFY ("KLIENT_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."KOSZYK" ADD PRIMARY KEY ("KOSZYK_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table PRODUKTY_KOSZYK
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."PRODUKTY_KOSZYK" MODIFY ("PRODUKTY_INSIDE" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."PRODUKTY_KOSZYK" ADD PRIMARY KEY ("PRODUKTY_INSIDE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table PRODUCENT
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."PRODUCENT" MODIFY ("PRODUCENT_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."PRODUCENT" ADD PRIMARY KEY ("PRODUCENT_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table KATEGORIA
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."KATEGORIA" MODIFY ("KATEGORIA_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."KATEGORIA" ADD PRIMARY KEY ("KATEGORIA_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table PRODUKT
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."PRODUKT" MODIFY ("PRODUKT_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."PRODUKT" ADD PRIMARY KEY ("PRODUKT_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table KLIENT
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."KLIENT" MODIFY ("KLIENT_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."KLIENT" MODIFY ("NAZWISKO" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."KLIENT" ADD PRIMARY KEY ("KLIENT_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "TMP_2K"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table ZAMOWIENIE
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."ZAMOWIENIE" MODIFY ("ZAMOWIENIE_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."ZAMOWIENIE" MODIFY ("KLIENT_ID" NOT NULL ENABLE);
+  ALTER TABLE "STUDENT"."ZAMOWIENIE" ADD PRIMARY KEY ("ZAMOWIENIE_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  TABLESPACE "TMP_2K"  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table KOSZYK
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."KOSZYK" ADD FOREIGN KEY ("KLIENT_ID")
+	  REFERENCES "STUDENT"."KLIENT" ("KLIENT_ID") ENABLE;
+  ALTER TABLE "STUDENT"."KOSZYK" ADD FOREIGN KEY ("PRACOWNIK_ID")
+	  REFERENCES "STUDENT"."PRACOWNIK" ("PRACOWNIK_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table PRACOWNIK
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."PRACOWNIK" ADD FOREIGN KEY ("ZAMOWIENIE_ID")
+	  REFERENCES "STUDENT"."ZAMOWIENIE" ("ZAMOWIENIE_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table PRODUKT
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."PRODUKT" ADD FOREIGN KEY ("KATEGORIA_ID")
+	  REFERENCES "STUDENT"."KATEGORIA" ("KATEGORIA_ID") ENABLE;
+  ALTER TABLE "STUDENT"."PRODUKT" ADD FOREIGN KEY ("PRODUCENT_ID")
+	  REFERENCES "STUDENT"."PRODUCENT" ("PRODUCENT_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table PRODUKTY_KOSZYK
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."PRODUKTY_KOSZYK" ADD FOREIGN KEY ("PRODUKT_ID")
+	  REFERENCES "STUDENT"."PRODUKT" ("PRODUKT_ID") ENABLE;
+  ALTER TABLE "STUDENT"."PRODUKTY_KOSZYK" ADD FOREIGN KEY ("KOSZYK_ID")
+	  REFERENCES "STUDENT"."KOSZYK" ("KOSZYK_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table PRODUKT_ZAMOWIENIE
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."PRODUKT_ZAMOWIENIE" ADD FOREIGN KEY ("PRODUKT_ID")
+	  REFERENCES "STUDENT"."PRODUKT" ("PRODUKT_ID") ENABLE;
+  ALTER TABLE "STUDENT"."PRODUKT_ZAMOWIENIE" ADD FOREIGN KEY ("ZAMOWIENIE_ID")
+	  REFERENCES "STUDENT"."ZAMOWIENIE" ("ZAMOWIENIE_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table ZAMOWIENIE
+--------------------------------------------------------
+
+  ALTER TABLE "STUDENT"."ZAMOWIENIE" ADD FOREIGN KEY ("KLIENT_ID")
+	  REFERENCES "STUDENT"."KLIENT" ("KLIENT_ID") ENABLE;
+  ALTER TABLE "STUDENT"."ZAMOWIENIE" ADD FOREIGN KEY ("PRACOWNIK_ID")
+	  REFERENCES "STUDENT"."PRACOWNIK" ("PRACOWNIK_ID") ENABLE;
+--------------------------------------------------------
+--  DDL for Function FWYPISZ
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE FUNCTION "STUDENT"."FWYPISZ" (zm_id IN number) 
+      RETURN varchar2
+    IS
+    BEGIN
+         SELECT p.nazwa, q.nazwa, p.cena, p.opis FROM produkt p, producent q WHERE q.producent_id = p.producent_id AND p.produkt_id=zm_id;
+    END fWypisz;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure CREATE_ZAM
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."CREATE_ZAM" (
+  klient_id IN NUMBER,
+  pracownik_id IN NUMBER,
+  wartosc IN int,
+  produkty_inside IN number)
+  IS
+  BEGIN
+    INSERT INTO zamowienie VALUES (zamowienie_seq.nextval, klient_id, pracownik_id, wartosc);
+  END create_zam;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure CZY_POWT
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."CZY_POWT" (email_IN IN VARCHAR2, wartosc OUT SYS_REFCURSOR) AS
+BEGIN
+OPEN wartosc FOR
+  SELECT email FROM klient WHERE email = email_IN;
+  end;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure KOSZYK_EDIT
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."KOSZYK_EDIT" (
+  wartosc_IN IN int)
+  IS
+  BEGIN
+   UPDATE koszyk SET wartosc=wartosc+wartosc_IN;
+  END koszyk_edit;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure KOSZYK_PROC
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."KOSZYK_PROC" (
+  klient_id IN NUMBER,
+  wartosc IN int)
+  IS
+  BEGIN
+    INSERT INTO koszyk VALUES (koszyk_seq.nextval, klient_id, pracownikZamow_seq.nextval, wartosc, koszprod_seq.nextval);
+  END koszyk_proc;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure LICZ_WIERSZE
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."LICZ_WIERSZE" (kategoria_IN IN NUMBER, wartosc OUT SYS_REFCURSOR) AS
+BEGIN
+OPEN wartosc FOR
+  SELECT COUNT(produkt_id) FROM produkt WHERE kategoria_id=kategoria_IN;
+  end;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure LOGINPRAC
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."LOGINPRAC" (email_IN IN VARCHAR2, haslo_IN IN VARCHAR2, id_OUT OUT SYS_REFCURSOR) AS
+BEGIN
+  OPEN id_OUT FOR
+  SELECT pracownik_id FROM pracownik WHERE email = email_IN AND haslo = haslo_IN;
+  end;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure LOGUJ
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."LOGUJ" (email_IN IN VARCHAR2, haslo_IN IN VARCHAR2, id_OUT OUT SYS_REFCURSOR) AS
+BEGIN
+  OPEN id_OUT FOR
+  SELECT klient_id FROM klient WHERE email = email_IN AND haslo = haslo_IN;
+  end;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure MYPROC
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."MYPROC" (p1 IN NUMBER, p2 OUT NUMBER) AS
+  BEGIN
+      p2 := p1 * 2;
+  END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure REJESTRUJ
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."REJESTRUJ" (
+  nazwisko in varchar2,
+  imie in varchar2,
+  telefon in varchar2,
+  email in varchar2,
+  haslo in varchar2,
+  ulica in varchar2,
+  nr_domu in integer,
+  nr_lokalu in integer,
+  miejscowosc in varchar2,
+  kod_pocztowy in varchar2)
+  IS
+  BEGIN
+    INSERT INTO klient VALUES (
+   klient_seq.nextval, nazwisko, imie, telefon, email, haslo, ulica, nr_domu, nr_lokalu, miejscowosc, kod_pocztowy);
+  END rejestruj;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure WYPISZ_TAB
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."WYPISZ_TAB" (zm_id IN NUMBER, p2 OUT NUMBER) AS
+  BEGIN
+      p2 := ( SELECT p.nazwa, q.nazwa, p.cena, p.opis FROM produkt p, producent q WHERE q.producent_id = p.producent_id AND p.produkt_id=zm_id;);
+  END;
+
+/
+--------------------------------------------------------
+--  DDL for Procedure ZAMOW_REAL
+--------------------------------------------------------
+set define off;
+
+  CREATE OR REPLACE EDITIONABLE PROCEDURE "STUDENT"."ZAMOW_REAL" 
+as
+begin
+  select zamowienie_id, z.klient_id, nazwisko, imie, ulica, nr_domu, nr_lokalu, miejscowosc, kod_pocztowy, data_zlozenia, produkt_id, wartosc from z zamowienie, k klient where k.klient_id=z.klient_id;
+end;
+
+/
